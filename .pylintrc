@@ -1,0 +1,58 @@
+[MAIN]
+load-plugins=pylint.extensions.docparams,pylint.extensions.typing
+jobs=0
+output-format=text
+ignore=
+ignore-patterns=
+
+[MESSAGES CONTROL]
+disable=
+    # General
+    C0114,  # missing-module-docstring
+    C0115,  # missing-class-docstring
+    C0116,  # missing-function-docstring
+    # Style
+    W0511,  # fixme
+    # Design
+    R0903,  # too-few-public-methods
+    R0914,  # too-many-local-variables
+    R1702,  # too-many-nested-blocks
+    # Type checking
+    E1101,  # no-member (pydantic often triggers this)
+    W0201,  # attribute-defined-outside-init
+    # Exceptions
+    W0703,  # broad-except
+    # Logging
+    W1203,  # f-string-in-logging
+    # Consider using with for resource management
+    R1732,  # consider-using-with
+    # Line too long
+    C0301,  # line-too-long
+    # Import order
+    C0411,  # wrong-import-order
+    C0412,  # ungrouped-imports
+    C0415,  # import-outside-toplevel (common in test files)
+    # Duplicate code (test files often have similar patterns)
+    R0801,  # duplicate-code
+    # Unused imports (common in test files)
+    W0611,  # unused-import
+    # Redefining outer scope (common in tests)
+    W0621,  # redefined-outer-name
+    # Reimports (common in test files)
+    W0404,  # reimported
+    # Access to protected members (common in tests)
+    W0212,  # protected-access
+    # Deprecated typing
+    W6001,  # deprecated-typing-alias
+    # Style suggestions (optional)
+    C1803,  # use-implicit-booleaness-not-comparison
+    C0305,  # trailing-newlines
+
+[FORMAT]
+max-line-length=88
+
+[LOGGING]
+logging-format-style=old
+
+[TYPECHECK]
+generated-members=

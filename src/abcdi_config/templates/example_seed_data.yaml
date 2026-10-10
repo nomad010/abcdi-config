@@ -1,0 +1,13 @@
+seed_data:
+  - class: "server.database.model.user.UserModel"
+    data:
+      - email: "admin@example.com"
+        enabled: true
+        is_superuser: true
+        password_hash: "testpass"
+        last_login_time: null
+      - email: "test@example.com"
+        enabled: true
+        is_superuser: false
+        password_hash: "testpass"
+        last_login_time: null

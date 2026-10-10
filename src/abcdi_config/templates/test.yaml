@@ -1,0 +1,49 @@
+login_view: &login_view "LoginView"
+
+middleware:
+  - class: server.middleware.common.PrintingMiddleware
+    kwargs:
+      log_level: "DEBUG"
+      include_timing: true
+      prefix: "REQUEST"
+  - class: server.middleware.common.LoginMiddleware
+    kwargs:
+      redirect_route: *login_view
+      debug: true
+
+view_modules:
+  - server.views.main
+  - server.views.login
+  - server.views.api_users
+
+cache_class:
+  class: server.cache.simple.SimpleCache
+  kwargs:
+    default_ttl: 300
+
+logging:
+  level: DEBUG
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  handlers: ["console"]
+  file_path: ""
+
+dependencies:
+  cache:
+    class: server.cache.simple.SimpleCache
+    kwargs:
+      default_ttl: 300
+  session:
+    class: server.auth.session.SimpleSession
+    kwargs: {}
+  database:
+    class: server.database.InMemoryDatabase
+    kwargs:
+      echo: false
+      seed_files:
+        - example_seed_data.yaml
+  password_hasher:
+    class: server.auth.hasher.NoOpHasher
+    kwargs: {}
+
+# admin_user configuration removed - use CLI setup command instead
+# Run: python -m server.cli setup
