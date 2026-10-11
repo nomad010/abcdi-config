@@ -1,8 +1,8 @@
 """Unit tests for the schema module."""
-from pydantic import ValidationError
 import pytest
+from pydantic import ValidationError
 
-from abcdi_config.schema import Factory, Config
+from abcdi_config.schema import Config, Factory
 
 
 class TestFactory:

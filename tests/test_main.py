@@ -2,9 +2,8 @@
 
 import tempfile
 from pathlib import Path
-import pytest
 
-from abcdi_config import load_configuration, configuration
+from abcdi_config import configuration, load_configuration
 from abcdi_config.schema import Config
 
 

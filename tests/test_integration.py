@@ -1,12 +1,8 @@
 """Integration tests for abcdi-config."""
-from pathlib import Path
 import tempfile
+from pathlib import Path
 
-import abcdi
-import pytest
-from pydantic import BaseModel
-
-from abcdi_config import load_configuration, configuration
+from abcdi_config import configuration, load_configuration
 from abcdi_config.schema import Config
 
 
@@ -50,6 +46,7 @@ dependencies:
     finally:
         # Clean up
         import abcdi
+
         import abcdi_config
         abcdi_config.CONFIGURATION = None
         abcdi._current_context = None
@@ -82,6 +79,7 @@ dependencies:
     finally:
         # Clean up
         import abcdi
+
         import abcdi_config
         abcdi_config.CONFIGURATION = None
         abcdi._current_context = None

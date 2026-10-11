@@ -1,17 +1,16 @@
 import os
 from pathlib import Path
-from typing import Type, TypeVar
+from typing import TypeVar
 
 import abcdi
+import yaml
+
 from abcdi_config.exceptions import (
     ConfigAlreadyLoadedError,
     ConfigError,
     DependencyFactoryError,
 )
-
 from abcdi_config.schema import Config
-
-import yaml
 
 __all__ = [
     "ConfigAlreadyLoadedError",
@@ -28,7 +27,7 @@ ConfigT = TypeVar("ConfigT", bound=Config)
 CONFIGURATION = None
 
 
-def _resolve_class(cls_or_path: str) -> Type[Config]:
+def _resolve_class(cls_or_path: str) -> type[Config]:
     """Resolve a class from either a class object or import path string."""
     try:
         from importlib import import_module
@@ -43,7 +42,7 @@ def _resolve_class(cls_or_path: str) -> Type[Config]:
 
 
 def load_configuration(
-    path: Path, configuration_cls: Type[ConfigT], lazy_di: bool = False
+    path: Path, configuration_cls: type, lazy_di: bool = False
 ) -> None:
     """Load configuration from YAML and set up abcdi dependency injection context.
 

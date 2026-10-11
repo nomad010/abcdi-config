@@ -1,10 +1,11 @@
 """Edge case and validation tests for abcdi-config."""
-from pathlib import Path
 import tempfile
+from pathlib import Path
 
 import pytest
+from pydantic import ValidationError
 
-from abcdi_config import load_configuration, configuration
+from abcdi_config import load_configuration
 from abcdi_config.schema import Config
 
 
@@ -24,7 +25,7 @@ dependencies:
             config_path = Path(f.name)
 
         try:
-            with pytest.raises(Exception):
+            with pytest.raises(ValidationError):
                 load_configuration(config_path, Config)
         finally:
             config_path.unlink()
@@ -43,9 +44,7 @@ dependencies:
             config_path = Path(f.name)
 
         try:
-            with pytest.raises(Exception):
+            with pytest.raises(ValidationError):
                 load_configuration(config_path, Config)
         finally:
             config_path.unlink()
-
-

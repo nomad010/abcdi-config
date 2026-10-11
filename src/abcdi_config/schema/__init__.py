@@ -1,6 +1,6 @@
 from typing import Any
 
-from pydantic import ImportString, BaseModel
+from pydantic import BaseModel, ImportString
 from pydantic_settings import BaseSettings
 
 

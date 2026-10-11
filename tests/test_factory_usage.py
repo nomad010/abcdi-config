@@ -1,11 +1,10 @@
 """Integration tests demonstrating Factory pattern usage."""
-from pathlib import Path
 import tempfile
+from pathlib import Path
 
-import abcdi
 import pytest
 
-from abcdi_config import load_configuration, configuration
+from abcdi_config import load_configuration
 from abcdi_config.schema import Config
 
 
@@ -27,7 +26,6 @@ class TestFactoryPattern:
 
     def test_factory_creates_instance(self):
         """Test that Factory correctly creates an instance."""
-        import abcdi
         with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False) as f:
             config_yaml = """
 dependencies:
@@ -42,6 +40,7 @@ dependencies:
             config_path = Path(f.name)
 
         try:
+            import abcdi
             load_configuration(config_path, Config)
 
             service = abcdi.get_dependency('custom_service')
@@ -54,6 +53,7 @@ dependencies:
         finally:
             # Clean up
             import abcdi
+
             import abcdi_config
             abcdi_config.CONFIGURATION = None
             abcdi._current_context = None
@@ -61,7 +61,6 @@ dependencies:
 
     def test_factory_with_multiple_instances(self):
         """Test creating multiple factory instances."""
-        import abcdi
         with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False) as f:
             config_yaml = """
 dependencies:
@@ -80,6 +79,7 @@ dependencies:
             config_path = Path(f.name)
 
         try:
+            import abcdi
             load_configuration(config_path, Config)
 
             service_a = abcdi.get_dependency('service_a')
@@ -93,6 +93,7 @@ dependencies:
         finally:
             # Clean up
             import abcdi
+
             import abcdi_config
             abcdi_config.CONFIGURATION = None
             abcdi._current_context = None
@@ -100,7 +101,6 @@ dependencies:
 
     def test_factory_with_nested_kwargs(self):
         """Test Factory with nested configuration objects."""
-        import abcdi
         with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False) as f:
             config_yaml = """
 dependencies:
@@ -115,6 +115,7 @@ dependencies:
             config_path = Path(f.name)
 
         try:
+            import abcdi
             load_configuration(config_path, Config)
 
             db = abcdi.get_dependency('database')
@@ -126,6 +127,7 @@ dependencies:
         finally:
             # Clean up
             import abcdi
+
             import abcdi_config
             abcdi_config.CONFIGURATION = None
             abcdi._current_context = None
@@ -137,12 +139,12 @@ class TestDependencyResolution:
 
     def test_dependency_not_found_raises_error(self):
         """Test that get_dependency raises when dependency doesn't exist."""
-        import abcdi
         with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False) as f:
             f.write("dependencies: {}")
             config_path = Path(f.name)
 
         try:
+            import abcdi
             load_configuration(config_path, Config)
 
             with pytest.raises(KeyError):  # abcdi raises KeyError for unknown dependency
@@ -151,6 +153,7 @@ class TestDependencyResolution:
         finally:
             # Clean up
             import abcdi
+
             import abcdi_config
             abcdi_config.CONFIGURATION = None
             abcdi._current_context = None
@@ -158,7 +161,6 @@ class TestDependencyResolution:
 
     def test_multiple_dependencies_independent(self):
         """Test that multiple dependencies are independent instances."""
-        import abcdi
         with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False) as f:
             config_yaml = """
 dependencies:
@@ -177,6 +179,7 @@ dependencies:
             config_path = Path(f.name)
 
         try:
+            import abcdi
             load_configuration(config_path, Config)
 
             counter1 = abcdi.get_dependency('counter')
@@ -190,6 +193,7 @@ dependencies:
         finally:
             # Clean up
             import abcdi
+
             import abcdi_config
             abcdi_config.CONFIGURATION = None
             abcdi._current_context = None
