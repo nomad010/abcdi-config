@@ -80,6 +80,8 @@ rfc3986==2.0.0
     # via twine
 rich==15.0.0
     # via twine
+ruff==0.17.0
+    # via -r dev-requirements.in
 tomlkit==0.15.1
     # via pylint
 twine==7.0.0
