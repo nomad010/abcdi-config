@@ -24,20 +24,20 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade uv
-          uv pip --system install -e .
-          uv pip --system install -r dev-requirements.txt
+          uv --system pip install -e .
+          uv --system pip install -r dev-requirements.txt
 
       - name: Run tests
         run: |
-          uv run --system pytest tests
+          uv --system run pytest tests
 
       - name: Run type checking
         run: |
-          uv run --system mypy src/abcdi_config
+          uv --system run mypy src/abcdi_config
 
       - name: Run linting
         run: |
-          uv run --system ruff check src/abcdi_config tests/
+          uv --system run ruff check src/abcdi_config tests/
 
   publish:
     needs: test
